@@ -1,0 +1,4 @@
+{
+    "dockerhub-id": "yaw006/conwea-rep:latest",
+    "build-script": "python run/run_tfidf.py nyt/coarse"
+}

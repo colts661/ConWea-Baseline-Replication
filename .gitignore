@@ -1,0 +1,6 @@
+# local running scripts
+*.sh
+
+# python cache
+.ipynb_checkpoints/
+__pycache__
