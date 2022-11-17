@@ -4,3 +4,6 @@
 # python cache
 .ipynb_checkpoints/
 __pycache__
+
+# testing notebook
+*.ipynb

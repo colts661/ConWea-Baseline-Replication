@@ -1,0 +1,20 @@
+{
+    "business": [
+      "companies",
+      "euro",
+      "economy",
+      "sales"
+    ],
+    "science": [
+      "space",
+      "scientists",
+      "research",
+      "experiment"
+    ],
+    "sports": [
+      "yankees",
+      "cup",
+      "league",
+      "basketball"
+    ]
+  }
