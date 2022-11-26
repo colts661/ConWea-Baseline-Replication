@@ -4,6 +4,7 @@
 # python cache
 .ipynb_checkpoints/
 __pycache__
+.vscode
 
 # testing notebook
 *.ipynb

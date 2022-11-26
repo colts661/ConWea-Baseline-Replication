@@ -41,7 +41,7 @@ def test() -> None:
     d = Data(
         data_dir='test/', 
         dataset='testdata', 
-        stem=True, 
+        stem=False, 
         special_tokens=True
     )
     
@@ -113,7 +113,7 @@ def tune(dataset: str, models: list) -> None:
             d = Data(
                 data_dir='data/', 
                 dataset=dataset, 
-                stem=True,
+                stem=False if dataset == '20news/fine' else True,
                 special_tokens=True
             )
             one_w2v_result, model = Word2Vec_Model.run(d, **one_config)

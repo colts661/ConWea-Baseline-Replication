@@ -201,7 +201,7 @@ class Word2Vec_Model:
         result = dict(config)
         result.update({'stem': d.stem, 'data': d.name})
 
-        if not check_config(config, 'model_params'):
+        if check_config(config, 'model_params'):
             model_config = dict()
         else:
             model_config = config['model_params']
