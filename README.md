@@ -44,9 +44,10 @@ optional arguments:
   -p, --plot             visualize document length distribution. Only used in `experiment` target
 ```
 
-### File Outline
+### Code File Outline
 ```
 ConWea-Baseline-Replication/
+├── run.py                           <- main script
 ├── config/                          <- model configuration JSON files
 │   ├── exp_tfidf_config.json
 │   ├── ht_tfidf_config.json
