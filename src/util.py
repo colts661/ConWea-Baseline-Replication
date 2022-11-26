@@ -3,7 +3,6 @@ Utility Functions for Replication
 """
 
 from data import *
-import numpy as np
 from sklearn.metrics import f1_score
 from scipy.spatial import distance
 import json

@@ -5,7 +5,6 @@ Collection of Models
 from data import *
 from util import *
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from gensim.models import Word2Vec
