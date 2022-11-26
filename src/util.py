@@ -6,7 +6,49 @@ from data import *
 import numpy as np
 from sklearn.metrics import f1_score
 from scipy.spatial import distance
-import matplotlib.pyplot as plt
+import json
+from datetime import datetime
+
+### config files
+def load_config(path):
+    try:
+        with open(path, 'r') as f:
+            return json.load(f)
+    except:
+        return dict()
+        
+def check_config(config, key):
+    return (key not in config) or (not config[key])
+
+def write_result(path, **config):
+    t = datetime.now().strftime("%D %H:%M:%S")
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            content = json.load(f)
+            content[t] = config
+
+        with open(path, 'w') as f:
+            json.dump(content, f)
+    else:
+        with open(path, 'w') as f:
+            json.dump({t: config}, f)
+
+def flatten_dict(d):
+    result = dict()
+    for key, value in d.items():
+        if isinstance(value, dict):
+            for sub_key, sub_values in flatten_dict(value).items():
+                result[f'{key}_{sub_key}'] = sub_values
+        else:
+            result[key] = value
+    return result
+
+def combine_dict(d, one_d):
+    for key, value in one_d.items():
+        if key not in d:
+            d[key] = [value]
+        else:
+            d[key].append(value)
 
 ### Metrics
 def accuracy(label, pred):
@@ -28,16 +70,3 @@ def evaluate(label, pred, methods=['micro_f1', 'macro_f1']):
 ### Similarity
 def cosine_similarity(u, v):
     return 1 - distance.cosine(u, v)
-
-### General Plotting
-def plot_distribution(data: Data):
-    # visualize lengths
-    df_len = data.df.assign(length=data.df.sentence.apply(lambda s: len(s)))
-    bins = np.linspace(df_len.length.min(), df_len.length.max(), 100)
-
-    # overlay histograms
-    for name, group_df in df_len.groupby('label'):
-        plt.hist(group_df.length, bins, alpha=0.5, label=name)
-
-    plt.legend(loc='upper right')
-    plt.title(f"Distribution of Document Lengths: {data.name.replace('/', '_')}")

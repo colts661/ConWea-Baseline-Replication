@@ -75,6 +75,32 @@ class Tfidf_Model:
         }
         return func[mode]
 
+    @staticmethod
+    def run(d: Data, **config) -> dict:
+        """
+        Perform a TF-IDF Run.
+        """
+        print('Running TF-IDF Model')
+        result = dict(config)
+        result.update({'stem': d.stem, 'data': d.name})
+
+        if check_config(config, 'agg'):
+            aggs = ['mean', 'mean_sq', 'max']
+        else:
+            aggs = config['agg']
+        
+        tfidf = Tfidf_Model(data=d)
+        for agg in aggs:
+            print(f'{d.name}, {"Stemmed" if d.stem else "Not Stemmed"}, {agg}')
+            tfidf_pred = tfidf.predict(agg=agg)
+            metric = evaluate(tfidf.data.true_labels, tfidf_pred)
+            print(metric)
+            print()
+            result.update({agg: metric})
+
+        return result
+
+
 
 class Word2Vec_Model:
     """
@@ -165,3 +191,39 @@ class Word2Vec_Model:
         ax.set_title('Document and Labels Representation in 2D')
 
         return fig
+
+    @staticmethod
+    def run(d: Data, **config) -> dict:
+        """
+        Perform a Word2Vec Run.
+        """
+        print('Running Word2Vec Model')
+        result = dict(config)
+        result.update({'stem': d.stem, 'data': d.name})
+
+        if not check_config(config, 'model_params'):
+            model_config = dict()
+        else:
+            model_config = config['model_params']
+        
+        w2v = Word2Vec_Model(d)
+
+        # load or train model
+        if not check_config(config, 'model_inpath'):
+            w2v.load_model(config['model_inpath'])
+        else:
+            w2v.fit(**model_config)
+        
+        # evaluate
+        w2v_pred = w2v.predict()
+        metric = evaluate(w2v.data.true_labels, w2v_pred)
+        for k, v in metric.items():
+            print(f"{k}: {v}")
+        result.update(metric)
+        print()
+
+        # output model
+        if not check_config(config, 'model_outpath'):
+            w2v.model.save(config['model_outpath'])
+
+        return result, w2v.model
