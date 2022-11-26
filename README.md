@@ -44,7 +44,7 @@ optional arguments:
   -p, --plot             visualize document length distribution. Only used in `experiment` target
 ```
 
-#### File Outline
+### File Outline
 ```
 ConWea-Baseline-Replication/
 ├── config/                          <- model configuration JSON files
