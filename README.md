@@ -37,8 +37,8 @@ python run.py [-h] test [-d DATA] [-m MODEL [...]] [-s] [-o] [-p]
 optional arguments:
 
   -h, --help             show help message and exit
-  -d DATA, --data DATA   data path, default is `nyt/coarse`
-  -m, --model <model>    model. Supports `tfidf` and/or `w2v`. Need at least 1, default is both
+  -d, --data DATA        data path, default is `nyt/coarse`
+  -m, --model MODEL      model. Supports `tfidf` and/or `w2v`. Need at least 1, default is both
   -s, --stem             whether to stem the corpus. Only used in `experiment` target
   -o, --output           whether to write result. Only used in `experiment` target
   -p, --plot             visualize document length distribution. Only used in `experiment` target
