@@ -1,4 +1,4 @@
 {
-    "dockerhub-id": "yaw006/conwea-rep:latest",
+    "dockerhub-id": "yaw006/conwea-rep:submit",
     "build-script": "python run.py"
 }

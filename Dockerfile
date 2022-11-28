@@ -1,17 +1,20 @@
-# Base container: python 3.7.13
-FROM python:3.7.12-slim
+# Base container
+ARG BASE_CONTAINER=ucsdets/datahub-base-notebook:2022.3-stable
 
+FROM $BASE_CONTAINER
 
-# 2) change to root to install packages
+LABEL maintainer="UC San Diego ITS/ETS <ets-consult@ucsd.edu>"
+
+# change to root to update packages
 USER root
 
-# RUN apt update
+RUN apt update
 
-# 3) install packages using notebook user
-# USER jovyan
+# install packages using notebook user
+USER jovyan
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install numpy==1.22.0
+RUN pip install gensim
 
 # Override command to disable running jupyter notebook at launch
 CMD ["/bin/bash"]

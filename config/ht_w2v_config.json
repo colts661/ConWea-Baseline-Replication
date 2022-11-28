@@ -1,5 +1,5 @@
 {
-        "vector_size": [16, 64], 
+        "vector_size": [16, 32], 
         "alpha": [0.01], 
         "window": [5, 10], 
         "min_count": [10], 
@@ -7,5 +7,5 @@
         "seed": [42], 
         "sg": [0], 
         "hs": [1], 
-        "epochs": [75]
+        "epochs": [15]
 }

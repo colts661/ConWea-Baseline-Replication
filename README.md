@@ -1,10 +1,9 @@
 # ConWea Baseline Replication
 In this project, we aim to replicate two baseline results from the [ConWea](#conwea) paper: IR-TF-IDF and [Word2Vec](#word2vec).
 
-### Load Environment
-- Option 1: Run the docker container: `docker run yaw006/conwea-rep`;
-- Option 2: Build your own Docker Image using `docker build -t <image-fullname> .`;
-- Option 3: Install all required packages in `requirements.txt`.
+### Environment
+- Option 1: Run the docker container: `docker run yaw006/conwea-rep:submit`;
+- Option 2: Install all required packages in `requirements.txt`.
 
 ### Data
 - Each dataset should contain following files, and placed in `data/`:
