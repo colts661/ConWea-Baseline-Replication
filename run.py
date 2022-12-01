@@ -21,7 +21,7 @@ def parse() -> argparse.Namespace:
     parser.add_argument("-d", "--data", type=str, help="data path", default='nyt/coarse')
     parser.add_argument(
         "-m", "--model", type=str, nargs='+', choices=['tfidf', 'w2v'],
-        help="models to run", action='extend', default=['tfidf', 'w2v']
+        help="models to run", action='extend', default=[]
     )
     parser.add_argument("-s", "--stem", action='store_true', help="only used in experiments")
 
@@ -146,7 +146,10 @@ if __name__ == "__main__":
 
     else:
         # load data
-        models = list(set(args.model))
+        if len(args.model) == 0:
+            models = ['tfidf', 'w2v']
+        else:
+            models = list(set(args.model))
 
         # experiment target
         if args.target in ['experiment', 'exp']:

@@ -1,9 +1,12 @@
 # ConWea Baseline Replication
 In this project, we aim to replicate two baseline results from the [ConWea](#conwea) paper: IR-TF-IDF and [Word2Vec](#word2vec).
 
+
+
 ### Environment
 - Option 1: Run the docker container: `docker run yaw006/conwea-rep:submit`;
 - Option 2: Install all required packages in `requirements.txt`.
+- DSMLP: Since the data for this project is large, please run DSMLP launch script using a larger RAM. The suggested command is `launch.sh -i yaw006/conwea-rep:submit -m 16`. Please **DO NOT** use the default, otherwise Python processes might be killed halfway.
 
 ### Data
 - Each dataset should contain following files, and placed in `data/`:
