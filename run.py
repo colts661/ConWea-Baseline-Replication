@@ -95,9 +95,10 @@ def tune(dataset: str, models: list) -> None:
                 stem=one_config['stem'],
                 special_tokens=True
             )
-            one_tfidf_result = flatten_dict(Tfidf_Model.run(d, **one_config))
-            combine_dict(tfidf_result, one_tfidf_result)
+            result = Tfidf_Model.run(d, **one_config)
             del d
+            one_tfidf_result = flatten_dict(result)
+            combine_dict(tfidf_result, one_tfidf_result)
 
         write_result('results/tfidf_ht.json', **tfidf_result)
 
@@ -118,9 +119,9 @@ def tune(dataset: str, models: list) -> None:
                 special_tokens=True
             )
             one_w2v_result, model = Word2Vec_Model.run(d, **one_config)
+            del d
             one_w2v_result = flatten_dict(one_w2v_result)
             combine_dict(w2v_result, one_w2v_result)
-            del d
 
             # check best
             if one_w2v_result['macro_f1'] > best_macro:
