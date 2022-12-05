@@ -20,8 +20,12 @@ class Data:
             raise RuntimeError(f'Stemming {dataset} not supported')
         
         self.name = dataset
-        self.raw_path = os.path.join(data_dir, 'raw', dataset)
-        self.processed_path = os.path.join(data_dir, 'processed', dataset)
+        if dataset == 'testdata':
+            self.raw_path = os.path.join(data_dir, dataset)
+            self.processed_path = os.path.join(data_dir, dataset)
+        else:
+            self.raw_path = os.path.join(data_dir, 'raw', dataset)
+            self.processed_path = os.path.join(data_dir, 'processed', dataset)
         self.START, self.END = (
             ('<START>', '<END>') if special_tokens 
             else ('', '')

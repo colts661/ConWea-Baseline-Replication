@@ -13,3 +13,6 @@ __pycache__
 *.pkl
 seedwords.json
 seedwords_6.json
+
+# accident zip
+*.zip

@@ -4,22 +4,59 @@ In this project, we aim to replicate two baseline results from the [ConWea](#con
 
 
 ### Environment
-- Option 1: Run the docker container: `docker run yaw006/conwea-rep:submit`;
-- Option 2: Install all required packages in `requirements.txt`.
-- DSMLP: Since the data for this project is large, please run DSMLP launch script using a larger RAM. The suggested command is `launch.sh -i yaw006/conwea-rep:submit -m 16`. Please **DO NOT** use the default, otherwise Python processes might be killed halfway.
+- **DSMLP**: Since the data for this project is large, please run DSMLP launch script using a larger RAM. The suggested command is `launch.sh -i yaw006/conwea-rep:submit -m 16`. Please **DO NOT** use the default, otherwise Python processes might be killed halfway.
+- Other options:
+  - Option 1: Run the docker container: `docker run yaw006/conwea-rep:submit`;
+  - Option 2: Install all required packages in `requirements.txt`.
 
 ### Data
-- Each dataset should contain following files, and placed in `data/`:
+#### Data Information
+- Two datasets used in the report can be found on [Google Drive](https://drive.google.com/drive/folders/1AOnhV4g0U7GIDTek4ghDQ6EiwgQDXiW1?usp=sharing): `nyt` and `20news`.
+- Each dataset contains both the coarse and fine-grained versions, so the data `-d` tag currently supports `nyt/coarse, nyt/fine, 20news/coarse, 20news/fine`.
+
+#### Get Data
+- **DSMLP**/Linux: Run the commands below for the desired data:
+  - NYT:
+  ```
+  wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1V21UpNElA3hARO0QUEN4aNBiGaio5bJ7' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1V21UpNElA3hARO0QUEN4aNBiGaio5bJ7" -O 'data/raw/nyt.zip' && rm -rf /tmp/cookies.txt
+  cd data/raw
+  unzip -o nyt.zip
+  rm nyt.zip
+  cd ../..
+  ```
+  - 20News:
+  ```
+  wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1V21UpNElA3hARO0QUEN4aNBiGaio5bJ7' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1IqPdhBh_wi79p1DhM_QNnBcnQUk0DXml" -O 'data/raw/20news.zip' && rm -rf /tmp/cookies.txt
+  cd data/raw
+  unzip -o 20news.zip
+  rm 20news.zip
+  cd ../..
+  ```
+- Under Linux command line, for other Google Drive zips, 
+  - Follow the `wget` [tutorial](https://medium.com/@acpanjan/download-google-drive-files-using-wget-3c2c025a8b99)
+    - Find the Large File section (highlighted code section towards the end)
+    - Paste the `<FILEID>` from the `zip` file sharing link found on Google Drive
+    - Change the `<FILENAME>` to your data title
+  - Run `cd <dir>` to change directory into the data directory
+  - Run `unzip -o <zip name>` to unzip the data
+  - Run `rm <zip name>` to avoid storing too many objects in the container
+  - Run `cd <root>` to change directory back to your working directory
+- Under non-command line, go to the Google Drive link, download the zip directly, and place the files according to the requirements in the **Data Format** section.
+
+#### Data Format
+- Raw Data: Each dataset should contain following files, and placed in `data/raw/`:
   - **DataFrame pickle file**
-    - Example: ```data/nyt/coarse/df.pkl```
+    - Example: ```data/raw/nyt/coarse/df.pkl```
       - This dataset should contain two columns named ```sentence```, ```label```
       - ```sentence``` contains text and ```label``` contains its corresponding label.
       - Must be named as ```df.pkl```
   - **Seed Words JSON file**
-    - Example: ```data/nyt/coarse/seedwords.json```
+    - Example: ```data/raw/nyt/coarse/seedwords.json```
       - This json file contains seed words list for each label.
       - Must be named as ```seedwords.json```
-- Currently existing datasets: `nyt/coarse, nyt/fine, 20news/coarse, 20news/fine`
+- Processed Data: 
+  - The corpus will be processed after the first run, and processed files will be placed in `data/processed`.
+  - The processed file will be directly loaded for subsequent runs.
 
 ### Commands
 The main script is located in the root directory. It supports 3 targets:
