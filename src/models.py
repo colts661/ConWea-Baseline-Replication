@@ -22,7 +22,9 @@ class Tfidf_Model:
         self.corpus = data.corpus
         self.seedwords = data.seedwords
         self.labels = data.labels
-        self.num_seeds = {label: len(lst) for label, lst in self.data.seedwords.items()}
+        self.num_seeds = {
+            label: len(lst) for label, lst in self.data.seedwords.items()
+        }
     
     def fit(self):
         """
@@ -129,14 +131,20 @@ class Word2Vec_Model:
         self.doc_rep = np.empty((len(self.corpus), self.model.vector_size))
         self.label_rep = np.empty((len(self.labels), self.model.vector_size))
 
-        for i, doc in tqdm(enumerate(self.corpus), "Finding Document Representations"):
+        for i, doc in tqdm(
+            enumerate(self.corpus), 
+            "Finding Document Representations"
+        ):
             self.doc_rep[i] = np.vstack([
                 self.model.wv[w] 
                 for w in doc 
                 if w in self.model.wv
             ]).mean(axis=0)
     
-        for i, seeds in tqdm(enumerate(self.seedwords.values()), "Finding Label Representations"):
+        for i, seeds in tqdm(
+            enumerate(self.seedwords.values()), 
+            "Finding Label Representations"
+        ):
             self.label_rep[i] = np.vstack([
                 self.model.wv[s] 
                 for s in seeds 
@@ -148,7 +156,9 @@ class Word2Vec_Model:
 
         for i, doc in tqdm(enumerate(self.corpus), "Finding Similarity"):
             for j, label in enumerate(self.seedwords):
-                self.relevance[i][j] = cosine_similarity(self.doc_rep[i], self.label_rep[j])
+                self.relevance[i][j] = cosine_similarity(
+                    self.doc_rep[i], self.label_rep[j]
+                )
         
         # predict
         return self.data.pred_to_label(self.relevance.argmax(axis=1))
@@ -180,7 +190,10 @@ class Word2Vec_Model:
         if not all_reps:
             return
 
-        rep_2d = PCA(n_components=2).fit_transform(np.vstack(list(all_reps.values())))
+        rep_2d = (
+            PCA(n_components=2)
+            .fit_transform(np.vstack(list(all_reps.values())))
+        )
         labels = list(all_reps.keys())
 
         fig, ax = plt.subplots(1, 1, figsize=(4, 4))        

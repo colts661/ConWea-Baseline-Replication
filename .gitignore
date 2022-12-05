@@ -8,3 +8,8 @@ __pycache__
 
 # testing notebook
 *.ipynb
+
+# data
+*.pkl
+seedwords.json
+seedwords_6.json
