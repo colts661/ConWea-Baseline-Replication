@@ -89,6 +89,7 @@ optional arguments:
   -o, --output           whether to write result. Only used in `experiment` target
   -p, --plot             visualize document length distribution. Only used in `experiment` target
 ```
+**Note**: Due to time constraints and container constraints, the short experiments and hyperparameters are chosen to run fast, which means performance is not guaranteed. For good outputs, please refer to `models/tuned` and update files in `config` to match the best hyperparameter setting.
 
 ### Code File Outline
 ```
